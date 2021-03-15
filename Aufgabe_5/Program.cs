@@ -12,11 +12,12 @@ namespace Aufgabe_5
         static void Main(string[] args)
         {
             Console.WriteLine("********************************************************************************");
-            Console.WriteLine("* This program draws an isosceles triangle onto the screen                     *");
+            Console.WriteLine("* This program draws an isosceles triangle onto the console                    *");
             Console.WriteLine("********************************************************************************");
             Console.WriteLine();
 
             string strInput;
+            int heightTriangle;
 
             while (true)
             {
@@ -34,13 +35,25 @@ namespace Aufgabe_5
                     Console.WriteLine("Input not accepted. Please try again!");
                     continue;
                 }
+                heightTriangle = Int32.Parse(strInput);
                 Console.WriteLine();
-                for (int i = 0; i < 5; i++)
-                {
-                    Console.Write("\b");
-                }
-                Console.Write("*");
+                string lineString;
 
+                for (int i = 1; i <= heightTriangle; i++)
+                {
+                    lineString = "";
+                    for (int j = heightTriangle - i; j > 0; j--)
+                    { 
+                        // Draw spaces:
+                        lineString += " ";
+                    }
+                    for (int j = i * 2 - 1; j > 0; j--)
+                    { 
+                        // Draw star symbols:
+                        lineString += "*";
+                    }
+                    Console.WriteLine(lineString);
+                }
             }
         }
         // Return false if input cannot be processed, and true when input was correct:
