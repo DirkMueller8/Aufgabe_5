@@ -7,6 +7,11 @@ namespace Aufgabe_5
     // Date: 15.03.2021
     //
     // Algorithm:
+    // 1. Take the input from the user and check the validity of it
+    // 2. Each row (starting with 1) to be printed is a combination of spaces and star symbols
+    // 3. There are spaces as much as triangle height minus row number
+    // 4. The amount of stars is 1, 3, 5, 7,... in rows 1, 2, 3, 4, 5, respectively
+    //
     class Program
     {
         static void Main(string[] args)
@@ -18,11 +23,13 @@ namespace Aufgabe_5
 
             string strInput;
             int heightTriangle;
+            // String to be constructed for each row on the screen printout:
+            string rowString;
 
             while (true)
             {
                 Console.WriteLine();
-                Console.Write("Give the height - less than 100 - of the triangle (exit with 0): ");
+                Console.Write("Give the height - not more than 60 - of the triangle (exit with 0): ");
                 strInput = Console.ReadLine();
 
                 // The case for exit:
@@ -37,22 +44,27 @@ namespace Aufgabe_5
                 }
                 heightTriangle = Int32.Parse(strInput);
                 Console.WriteLine();
-                string lineString;
 
-                for (int i = 1; i <= heightTriangle; i++)
+                // Thi outer loop addresses each row of the triangle:
+                for (int rowNumber = 1; rowNumber <= heightTriangle; rowNumber++)
                 {
-                    lineString = "";
-                    for (int j = heightTriangle - i; j > 0; j--)
-                    { 
-                        // Draw spaces:
-                        lineString += " ";
+                    // Empty the string always at the beginning:
+                    rowString = "";
+                    // Depending on the row number draw spaces, the further up in the triangle the more:
+                    for (int j = heightTriangle - rowNumber; j > 0; j--)
+                    {
+                        // Append a space in front of the star(s):
+                        rowString += " ";
                     }
-                    for (int j = i * 2 - 1; j > 0; j--)
-                    { 
-                        // Draw star symbols:
-                        lineString += "*";
+                    // Create a sequence of 1, 3, 5, 7, 9, ... stars:
+                    // 
+                    for (int j = rowNumber * 2 - 1; j > 0; j--)
+                    {
+                        // Append a star symbol to any existing star:
+                        rowString += "*";
                     }
-                    Console.WriteLine(lineString);
+                    // Draw the whole line:
+                    Console.WriteLine(rowString);
                 }
             }
         }
@@ -63,9 +75,9 @@ namespace Aufgabe_5
             bool result = Int32.TryParse(strInput, out number);
 
             // Catch the case where the number is beyond the range ±5.0 × 10−^324 to ±1.7 × 10^308:
-            if (number >= 100)
+            if (number > 60)
             {
-                Console.WriteLine("Number is beyond the upper limit of 100.");
+                Console.WriteLine("Number is beyond the upper limit of 60.");
                 return false;
             }
 
